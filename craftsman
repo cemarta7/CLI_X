@@ -5,7 +5,7 @@ use Symfony\Component\Console\Application;
 require_once(__DIR__.'/utils/bootstrap.php');
 
 define('CRAFTSMANPATH', __DIR__.'/');
-define('CRAFTSMANVERSION', '5.0.0');
+define('CRAFTSMANVERSION', '5.0.1');
 
 /**
  * CLI Codeigniter Crafstman
@@ -35,11 +35,39 @@ $commands = [
   new Craftsman\Commands\Seeder,
 ];
 
+function autoload_repos($class_name)
+{
+    $path=getcwd().'/application/';
+    if (str_starts_with($class_name, 'app')!==0) {
+        $class_name = str_replace("app\\", "", $class_name);
+        $file = $path.  str_replace('\\', DIRECTORY_SEPARATOR, ltrim($class_name, '\\')). '.php';
+        if (file_exists($file)) {
+            require_once($file);
+        }
+    }
+}
+
+spl_autoload_register('autoload_repos');
+
+$path=getcwd().'/application/';
+if ($handle = opendir($path.'commands/')) {
+    while (false !== ($entry = readdir($handle))) {
+        if ($entry != "." && $entry != ".." && substr($entry, -4)=='.php') {
+            //$source= APPPATH.'config/'.$entry;
+            require_once($path.'commands/'.$entry);
+            $class=str_replace('.php', '', $entry);
+            $final_class='app\\commands\\'.$class;
+            $commands[]=new $final_class;
+        }
+    }
+    closedir($handle);
+}
+
+
 $application = new Application('Craftsman', CRAFTSMANVERSION);
 
 // Add the default commands
-foreach ($commands as $key => $command)
-{
+foreach ($commands as $key => $command) {
     $application->add($command);
 }
 

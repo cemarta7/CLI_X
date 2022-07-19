@@ -68,11 +68,11 @@ abstract class Command extends SymfonyCommand
         ->setDescription($this->description)
         ->setAliases($this->aliases)
         ->addOption(
-          'env',
-          null,
-          InputOption::VALUE_REQUIRED,
-          'Set the environment variable file',
-          sprintf('%s/%s', getcwd(), '.craftsman')
+            'env',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Set the environment variable file',
+            sprintf('%s/%s', getcwd(), '.env')
         );
     }
 
@@ -84,8 +84,7 @@ abstract class Command extends SymfonyCommand
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        try
-        {
+        try {
             $this->input  = $input;
             $this->output = $output;
             $this->style  = new SymfonyStyle($input, $output);
@@ -99,12 +98,9 @@ abstract class Command extends SymfonyCommand
 
             $this->env->load();
             $this->env->required(['BASEPATH','APPPATH'])->notEmpty();
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             throw new \RuntimeException($e->getMessage());
         }
-
     }
 
     /**
@@ -115,19 +111,13 @@ abstract class Command extends SymfonyCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        try
-        {
-            if (method_exists($this, 'start'))
-            {
+        try {
+            if (method_exists($this, 'start')) {
                 $this->start();
-            }
-            else
-            {
+            } else {
                 throw new \RuntimeException('Command is not set correctly.');
             }
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
     }
@@ -138,10 +128,9 @@ abstract class Command extends SymfonyCommand
      * @param  string $name
      * @param  mixed  $arguments
      */
-    public function __call($name = '', $arguments = NULL)
+    public function __call($name = '', $arguments = null)
     {
-        switch ($name)
-        {
+        switch ($name) {
             case 'title':
             case 'section':
             case 'text':
