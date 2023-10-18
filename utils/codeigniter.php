@@ -9,11 +9,10 @@
  *
  * Based on https://raw.githubusercontent.com/kenjis/codeigniter-ss-twig/master/ci_instance.php
  */
-//$dotenv = new Dotenv();
-//$dotenv->usePutenv(true)->bootEnv('.env');
+//This will work on main msjc project
+$dotenv = new Symfony\Component\Dotenv\Dotenv();
+$dotenv->usePutenv(true)->bootEnv('.env');
 
-//$dotenv = Dotenv\Dotenv::create(__DIR__, '.env');
-//$dotenv->load();
 
 define('ENVIRONMENT', getenv('CI_ENV') ? getenv('CI_ENV') : 'development');
 
