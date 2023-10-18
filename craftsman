@@ -50,17 +50,18 @@ function autoload_repos($class_name)
 spl_autoload_register('autoload_repos');
 
 $path=getcwd().'/application/';
-if ($handle = opendir($path.'commands/')) {
-    while (false !== ($entry = readdir($handle))) {
-        if ($entry != "." && $entry != ".." && substr($entry, -4)=='.php') {
-            //$source= APPPATH.'config/'.$entry;
-            require_once($path.'commands/'.$entry);
-            $class=str_replace('.php', '', $entry);
-            $final_class='app\\commands\\'.$class;
-            $commands[]=new $final_class;
+if (folder_exist($path.'commands/')) {
+    if ($handle = opendir($path.'commands/')) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != ".." && substr($entry, -4)=='.php') {
+                require_once($path.'commands/'.$entry);
+                $class=str_replace('.php', '', $entry);
+                $final_class='app\\commands\\'.$class;
+                $commands[]=new $final_class;
+            }
         }
+        closedir($handle);
     }
-    closedir($handle);
 }
 
 

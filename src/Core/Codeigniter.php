@@ -18,7 +18,7 @@ class Codeigniter
         {
             return require_once __DIR__.'/../../utils/codeigniter.php';
         }
-        catch (Exception $e)
+        catch (\Exception $e)
         {
             exit(preg_replace('/\s+/', ' ', $e->getMessage()));
         }

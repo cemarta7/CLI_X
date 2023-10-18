@@ -21,7 +21,7 @@
     "symfony/process": "^5.0",
     "symfony/finder": "^5.4",
     "twig/twig" : "^3.0",
-    "vlucas/phpdotenv": "^2.4",
+    "vlucas/phpdotenv": "^3.6",
     "psy/psysh": ">=0.8.11",
     "spatie/ray": "^1.34"
   },
@@ -38,6 +38,6 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.7"
+    "phpunit/phpunit": "^8.5.21"
   }
 }

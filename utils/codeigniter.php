@@ -9,8 +9,11 @@
  *
  * Based on https://raw.githubusercontent.com/kenjis/codeigniter-ss-twig/master/ci_instance.php
  */
-$dotenv = new Symfony\Component\Dotenv\Dotenv();
-$dotenv->usePutenv(true)->bootEnv('.env');
+//$dotenv = new Dotenv();
+//$dotenv->usePutenv(true)->bootEnv('.env');
+
+//$dotenv = Dotenv\Dotenv::create(__DIR__, '.env');
+//$dotenv->load();
 
 define('ENVIRONMENT', getenv('CI_ENV') ? getenv('CI_ENV') : 'development');
 

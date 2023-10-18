@@ -91,14 +91,14 @@ abstract class Command extends SymfonyCommand
 
             $file = new \SplFileInfo($this->getOption('env'));
             // Create an environment instance
-            $this->env = new Dotenv(
+            $this->env = Dotenv::create(
                 $file->getPathInfo()->getRealPath(),
                 $file->getFilename()
             );
 
             $this->env->load();
             $this->env->required(['BASEPATH','APPPATH'])->notEmpty();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \RuntimeException($e->getMessage());
         }
     }
